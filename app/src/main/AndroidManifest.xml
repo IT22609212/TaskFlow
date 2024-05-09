@@ -13,8 +13,14 @@
         android:theme="@style/Theme.TaskFlow"
         tools:targetApi="31">
         <activity
+            android:name=".Add"
+            android:parentActivityName=".MainActivity"
+            android:label="Add Task"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="TaskFlow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

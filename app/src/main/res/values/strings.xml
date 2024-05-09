@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">TaskFlow</string>
+    <string name="floatingActionButton">TODO</string>
+    <string name="title_input">Book Title</string>
+    <string name="author_input">Book Author</string>
+    <string name="pages_input">Number of pages</string>
+    <string name="add_button">Add</string>
+
 </resources>
