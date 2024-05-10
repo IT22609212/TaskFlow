@@ -17,9 +17,11 @@
         android:hint="@string/title_input"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        android:textColorHint="#546E7A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="VisualLintTextFieldSize" />
 
     <EditText
         android:id="@+id/author_input"
@@ -33,7 +35,8 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_input" />
+        app:layout_constraintTop_toBottomOf="@+id/title_input"
+        tools:ignore="VisualLintTextFieldSize" />
 
     <EditText
         android:id="@+id/pages_input"
@@ -45,21 +48,27 @@
         android:hint="@string/pages_input"
         android:inputType="number"
         android:minHeight="48dp"
+        android:textColorHint="#546E7A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/author_input" />
+        app:layout_constraintTop_toBottomOf="@+id/author_input"
+        tools:ignore="VisualLintTextFieldSize" />
 
     <Button
         android:id="@+id/add_button"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginTop="40dp"
+        android:backgroundTint="#BDB8B8"
+        android:textColor="@color/black"
+       android:textStyle="bold"
         android:text="@string/add_button"
-        android:textSize="20sp"
         android:textAllCaps="false"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pages_input" />
+        app:layout_constraintTop_toBottomOf="@+id/pages_input"
+        tools:ignore="VisualLintButtonSize" />
 
 
 

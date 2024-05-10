@@ -1,10 +1,9 @@
 package com.example.taskflow
-
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class MyDatabase(context: Context) : SQLiteOpenHelper(context, "DATABASE_NAME", null, DATABASE_VERSION) {
+class MyDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private const val DATABASE_NAME = "TaskFlow.db"
         private const val DATABASE_VERSION = 1
@@ -17,16 +16,20 @@ class MyDatabase(context: Context) : SQLiteOpenHelper(context, "DATABASE_NAME", 
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val query = "CREATE TABLE $TABLE_NAME " +
-                "($COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "$COLUMN_TITLE TEXT, " +
-                "$COLUMN_AUTHOR TEXT, " +
-                "$COLUMN_PAGES INTEGER)"
-        db?.execSQL(query)
+        db?.let {
+            val query = "CREATE TABLE $TABLE_NAME " +
+                    "($COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "$COLUMN_TITLE TEXT, " +
+                    "$COLUMN_AUTHOR TEXT, " +
+                    "$COLUMN_PAGES INTEGER)"
+            it.execSQL(query)
+        }
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db?.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
-        onCreate(db)
+        db?.let {
+            it.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
+            onCreate(it)
+        }
     }
 }

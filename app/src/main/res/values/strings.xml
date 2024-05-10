@@ -5,5 +5,6 @@
     <string name="author_input">Book Author</string>
     <string name="pages_input">Number of pages</string>
     <string name="add_button">Add</string>
+    <string name="logo">LOGO</string>
 
 </resources>
