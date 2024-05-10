@@ -1,7 +1,9 @@
 package com.example.taskflow
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.widget.Toast
 
 class MyDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
@@ -12,7 +14,7 @@ class MyDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nu
         private const val COLUMN_ID = "_id"
         private const val COLUMN_TITLE = "task_title"
         private const val COLUMN_AUTHOR = "task_author"
-        private const val COLUMN_PAGES = "task_pages"
+        private const val COLUMN_NUMBER = "task_number"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -21,7 +23,7 @@ class MyDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nu
                     "($COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "$COLUMN_TITLE TEXT, " +
                     "$COLUMN_AUTHOR TEXT, " +
-                    "$COLUMN_PAGES INTEGER)"
+                    "$COLUMN_NUMBER INTEGER)"
             it.execSQL(query)
         }
     }
@@ -32,4 +34,21 @@ class MyDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nu
             onCreate(it)
         }
     }
+
+    fun addTask(context: Context, title: String, author: String, number: Int) {
+        val db = this.writableDatabase
+        val cv = ContentValues()
+
+        cv.put(COLUMN_TITLE, title)
+        cv.put(COLUMN_AUTHOR, author)
+        cv.put(COLUMN_NUMBER, number)
+        val result = db.insert(TABLE_NAME, null, cv)
+        if (result == -1L) {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "Added Successfully!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
 }
