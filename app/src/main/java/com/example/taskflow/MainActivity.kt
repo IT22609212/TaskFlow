@@ -1,13 +1,27 @@
 package com.example.taskflow
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var myDB: MyDatabase
+    private val _id = ArrayList<String>()
+    private val task_title = ArrayList<String>()
+    private val task_author = ArrayList<String>()
+    private val task_number = ArrayList<String>()
+
+    private lateinit var customAdapter: CustomAdapter
+    private lateinit var recyclerView: RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -18,11 +32,52 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+
         val floatingActionButton = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         floatingActionButton.setOnClickListener{
             val intent = Intent(this@MainActivity, Add::class.java)
             startActivity(intent)
         }
 
+        myDB = MyDatabase(this@MainActivity)
+        val _id = ArrayList<String>()
+        val task_title = ArrayList<String>()
+        val task_author = ArrayList<String>()
+        val task_number = ArrayList<String>()
+
+        StoreData()
+        customAdapter = CustomAdapter(
+            this@MainActivity, this, _id, task_title, task_author,
+            task_number
+        )
+        recyclerView.setAdapter(customAdapter)
+        recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+    }
+
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1) {
+            recreate()
+        }
+    }
+
+
+    fun StoreData() {
+         val cursor = myDB.readAllData()
+         if (cursor?.count == 0) {
+             Toast.makeText(this,"No Data.",Toast.LENGTH_SHORT).show()
+
+         } else {
+             if (cursor != null) {
+                 while (cursor.moveToNext()) {
+                     _id.add(cursor.getString(0))
+                     task_title.add(cursor.getString(1))
+                     task_author.add(cursor.getString(2))
+                     task_number.add(cursor.getString(3))
+                 }
+             }
+         }
     }
 }

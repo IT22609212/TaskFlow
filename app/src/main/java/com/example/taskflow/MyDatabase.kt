@@ -1,9 +1,13 @@
 package com.example.taskflow
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
+
+
+
 
 class MyDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
@@ -49,6 +53,35 @@ class MyDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nu
             Toast.makeText(context, "Added Successfully!", Toast.LENGTH_SHORT).show()
         }
     }
+
+    fun readAllData(): Cursor? {
+        val query = "SELECT * FROM $TABLE_NAME"
+        val db = this.readableDatabase
+
+        var cursor: Cursor? = null
+        if (db != null) {
+            cursor = db.rawQuery(query, null)
+        }
+        return cursor
+    }
+
+    fun updateData(context: Context, rowId: String, title: String, author: String, number: String) {
+        val db = this.writableDatabase
+        val cv = ContentValues()
+        cv.put(COLUMN_TITLE, title)
+        cv.put(COLUMN_AUTHOR, author)
+        cv.put(COLUMN_NUMBER, number)
+
+        val result = db.update(TABLE_NAME, cv, "_id=?", arrayOf(rowId))
+        if (result.toLong() == -1L) {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+
 
 
 }
