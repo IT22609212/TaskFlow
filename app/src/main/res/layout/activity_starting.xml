@@ -10,8 +10,8 @@
 
     <ImageButton
         android:id="@+id/logo"
-        android:layout_width="350dp"
-        android:layout_height="187dp"
+        android:layout_width="200dp"
+        android:layout_height="250dp"
         android:backgroundTint="@color/black"
         android:contentDescription="@string/logo"
         app:layout_constraintBottom_toBottomOf="parent"
