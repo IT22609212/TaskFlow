@@ -80,8 +80,19 @@ class MyDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nu
         }
     }
 
+    fun deleteOneRow(context: Context, rowId: String) {
+        val db = this.writableDatabase
+        val result = db.delete(TABLE_NAME, "_id=?", arrayOf(rowId)).toLong()
+        if (result == -1L) {
+            Toast.makeText(context, "Failed to Delete.", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show()
+        }
+    }
 
-
-
+    fun deleteAllData() {
+        val db = this.writableDatabase
+        db.execSQL("DELETE FROM $TABLE_NAME")
+    }
 
 }

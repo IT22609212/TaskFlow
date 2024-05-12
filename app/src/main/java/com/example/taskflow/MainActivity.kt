@@ -1,8 +1,11 @@
 package com.example.taskflow
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -31,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        recyclerView = findViewById(R.id.recyclerView)
 
         val floatingActionButton = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         floatingActionButton.setOnClickListener{
@@ -80,4 +83,35 @@ class MainActivity : AppCompatActivity() {
              }
          }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.my_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.delete_all) {
+            confirmDialog()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+    fun confirmDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Delete All?")
+        builder.setMessage("Are you sure you want to delete all Data?")
+        builder.setPositiveButton("Yes") { dialogInterface, i ->
+            val myDB = MyDatabase(this@MainActivity)
+            myDB.deleteAllData()
+            // Refresh Activity
+            val intent = Intent(this@MainActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        builder.setNegativeButton("No") { dialogInterface, i ->
+            // Do nothing
+        }
+        builder.create().show()
+    }
+
+
 }

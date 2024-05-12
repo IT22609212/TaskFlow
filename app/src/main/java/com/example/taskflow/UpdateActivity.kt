@@ -1,11 +1,15 @@
 package com.example.taskflow
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+
 
 class UpdateActivity : AppCompatActivity() {
 
@@ -28,12 +32,17 @@ class UpdateActivity : AppCompatActivity() {
         author_input = findViewById(R.id.author_input2)
         number_input = findViewById(R.id.number_input2)
         update_button = findViewById(R.id.update_button)
-       // delete_button = findViewById(R.id.delete_button)
+        delete_button = findViewById(R.id.delete_button)
 
 
         getAndSetIntentData()
 
-        supportActionBar?.title = title
+        //Set actionbar title
+        val ab: ActionBar? = supportActionBar
+        if (ab != null) {
+            ab.title = title
+        }
+
 
         update_button.setOnClickListener {
 
@@ -51,7 +60,7 @@ class UpdateActivity : AppCompatActivity() {
         }
     }
 
-    private fun getAndSetIntentData() {
+     fun getAndSetIntentData() {
         if (intent.hasExtra("id") && intent.hasExtra("title") &&
             intent.hasExtra("author") && intent.hasExtra("number")
         ) {
@@ -71,7 +80,20 @@ class UpdateActivity : AppCompatActivity() {
         }
     }
 
-    private fun confirmDialog() {
-        // Implement your confirmation dialog here
+    fun confirmDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Delete $title ?")
+        builder.setMessage("Are you sure you want to delete $title ?")
+        builder.setPositiveButton("Yes") { dialogInterface, i ->
+            val myDB = MyDatabase(this@UpdateActivity)
+            myDB.deleteOneRow(this@UpdateActivity, id)
+            finish()
+        }
+        builder.setNegativeButton("No") { dialogInterface, i ->
+            // Do nothing
+        }
+        builder.create().show()
     }
+
+
 }
