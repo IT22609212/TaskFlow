@@ -21,7 +21,7 @@ class Add : AppCompatActivity() {
 
         val title_input = findViewById<EditText>(R.id.title_input)
         val author_input = findViewById<EditText>(R.id.author_input)
-        val number_input = findViewById<EditText>(R.id.number_input)
+       val number_input = findViewById<EditText>(R.id.number_input)
         val add_button = findViewById<Button>(R.id.add_button)
 
         add_button.setOnClickListener {

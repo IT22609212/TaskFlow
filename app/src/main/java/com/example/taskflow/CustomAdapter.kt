@@ -11,11 +11,14 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-
-class CustomAdapter(private val activity: Activity, private val context: Context,
-                    private val _id: ArrayList<String>, private val task_title: ArrayList<String>,
-                    private val task_author: ArrayList<String>, private val task_number: ArrayList<String>)
-    : RecyclerView.Adapter<CustomAdapter.MyViewHolder>() {
+class CustomAdapter(
+    private val activity: Activity,
+    private val context: Context,
+    private val _id: ArrayList<String>,
+    private val task_title: ArrayList<String>,
+    private val task_author: ArrayList<String>,
+    private val task_number: ArrayList<String>
+) : RecyclerView.Adapter<CustomAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(context)
@@ -23,12 +26,12 @@ class CustomAdapter(private val activity: Activity, private val context: Context
         return MyViewHolder(view)
     }
 
-
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder._id_txt.text = _id[position]
         holder.task_title_txt.text = task_title[position]
         holder.task_author_txt.text = task_author[position]
         holder.task_number_txt.text = task_number[position]
+
         // RecyclerView onClickListener
         holder.mainLayout.setOnClickListener {
             val intent = Intent(context, UpdateActivity::class.java)
@@ -38,6 +41,10 @@ class CustomAdapter(private val activity: Activity, private val context: Context
             intent.putExtra("number", task_number[position])
             activity.startActivityForResult(intent, 1)
         }
+
+        // Animate RecyclerView item
+        val translateAnim = AnimationUtils.loadAnimation(context, R.anim.translate_anim)
+        holder.mainLayout.animation = translateAnim
     }
 
     override fun getItemCount(): Int {
@@ -50,11 +57,5 @@ class CustomAdapter(private val activity: Activity, private val context: Context
         var task_author_txt: TextView = itemView.findViewById(R.id.task_author_txt)
         var task_number_txt: TextView = itemView.findViewById(R.id.task_number_txt)
         var mainLayout: LinearLayout = itemView.findViewById(R.id.mainLayout)
-
-//        init {
-//            // Animate RecyclerView
-//            val translate_anim = AnimationUtils.loadAnimation(context, R.anim.translate_anim)
-//            mainLayout.animation = translate_anim
-//        }
     }
 }

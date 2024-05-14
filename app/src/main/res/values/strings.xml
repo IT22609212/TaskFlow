@@ -2,14 +2,14 @@
     <string name="app_name">TaskFlow</string>
     <string name="floatingActionButton">TODO</string>
     <string name="title_input">Task Title</string>
-    <string name="author_input">Task Author</string>
+    <string name="author_input">Task Description</string>
     <string name="number_input">Task Number</string>
     <string name="add_button">Add</string>
     <string name="logo">LOGO</string>
     <string name="rowtextview">TextView</string>
     <string name="id_txt">1</string>
     <string name="task_title_txt">Task 1</string>
-    <string name="task_author_txt">Author!</string>
+    <string name="task_author_txt">Description</string>
     <string name="task_number_txt">10</string>
     <string name="update_button">Update</string>
     <string name="delete_button">Delete</string>

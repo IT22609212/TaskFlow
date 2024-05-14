@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         add_button.setOnClickListener {
             val intent = Intent(this@MainActivity, Add::class.java)
             startActivity(intent)
+            finish()
         }
 
         myDB = MyDatabase(this@MainActivity)
@@ -51,8 +52,10 @@ class MainActivity : AppCompatActivity() {
         customAdapter = CustomAdapter(this@MainActivity, this@MainActivity, task_id, task_title, task_author, task_number)
         recyclerView.adapter = customAdapter
         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
